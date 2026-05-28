@@ -14,13 +14,13 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.x'
-      - name: Build APK
+     - name: Build APK
         run: |
           pip install flet
           mkdir -p assets
           cp filtros_wega.db assets/ || true
-          # O comando abaixo roda o build ignorando erros de entrada (stdin)
-          flet build apk --module-name main < /dev/null
+          # Adicionamos -v para modo verbose (detalhado)
+          flet build apk --module-name main -v
       - uses: actions/upload-artifact@v4
         with:
           name: app-apk
