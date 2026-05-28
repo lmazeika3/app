@@ -3,6 +3,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: 1 # Isso ajuda a evitar erros de leitura de stream
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -15,10 +17,9 @@ jobs:
       - name: Build APK
         run: |
           pip install flet
-          # Cria a estrutura de assets necessária
           mkdir -p assets
-          cp filtros_wega.db assets/
-          flet build apk --module-name main --project "ConsultaWega"
+          cp filtros_wega.db assets/ || true
+          flet build apk --module-name main
       - uses: actions/upload-artifact@v4
         with:
           name: app-apk
