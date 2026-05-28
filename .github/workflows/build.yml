@@ -19,7 +19,8 @@ jobs:
           pip install flet
           mkdir -p assets
           cp filtros_wega.db assets/ || true
-          flet build apk --module-name main
+          # O comando abaixo roda o build ignorando erros de entrada (stdin)
+          flet build apk --module-name main < /dev/null
       - uses: actions/upload-artifact@v4
         with:
           name: app-apk
